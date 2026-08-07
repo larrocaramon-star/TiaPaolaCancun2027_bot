@@ -1,8 +1,17 @@
 name: Daily Car Offer (CUN)
 on:
   schedule:
-    - cron: '0 12 * * *'   # se ejecuta cada día a las 12:00 UTC (ajusta si quieres otra hora)
+    - cron: '0 12 * * *' # se ejecuta cada día a las 12:00 UTC
   workflow_dispatch:
+    inputs:
+      rent_start:
+        description: 'Fecha inicio YYYY-MM-DD'
+        required: true
+        default: '2026-02-03'
+      rent_end:
+        description: 'Fecha fin YYYY-MM-DD'
+        required: true
+        default: '2026-02-15'
 
 jobs:
   daily:
@@ -20,7 +29,7 @@ jobs:
         env:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
-          # Cambia estas fechas por las que quieras cotizar (siempre dentro 2026-02-03 a 2026-02-15)
-          RENT_START: "2026-02-03"
-          RENT_END: "2026-02-15"
-        run: |   python scrape_and_notify.py
+          RENT_START: ${{ github.event.inputs.rent_start }}
+          RENT_END: ${{ github.event.inputs.rent_end }}
+        run: |
+          python scrape_and_notify.py
