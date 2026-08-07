@@ -22,6 +22,5 @@ jobs:
           CHAT_ID: ${{ secrets.CHAT_ID }}
           # Cambia estas fechas por las que quieras cotizar (siempre dentro 2026-02-03 a 2026-02-15)
           RENT_START: "2026-02-03"
-          RENT_END: "2026-02-12"
-        run: |
-          python scrape_and_notify.py
+          RENT_END: "2026-02-15"
+        run: |   python scrape_and_notify.py
